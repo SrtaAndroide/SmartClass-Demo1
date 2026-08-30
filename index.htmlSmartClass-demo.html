@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SmartClass — Panel del estudiante</title>
+    <meta name="description" content="SmartClass: plataforma educativa. Panel principal del estudiante." />
+    <meta name="author" content="Tamar Andrade Miranda" />
+
+    <!-- Google Fonts: Sora (display) + Inter (body/UI) + IBM Plex Mono (datos/cifras) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700;800&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+
+    <!-- ✅ RUTA CORREGIDA: Añadido ./ para GitHub Pages -->
+    <link rel="stylesheet" href="./css/styles.css" />
+</head>
+<body>
+
+    <!-- ============ OVERLAY (móvil, al abrir sidebar) ============ -->
+    <div class="overlay" id="overlay"></div>
+
+    <div class="app">
+
+        <!-- ============ SIDEBAR ============ -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar__brand">
+                <span class="sidebar__logo" aria-hidden="true">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M12 3L2 8l10 5 10-5-10-5z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M6 12v5c0 1.5 2.7 3 6 3s6-1.5 6-3v-5" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>
+                </span>
+                <span class="sidebar__name">SmartClass</span>
+                <button class="sidebar__close" id="sidebarClose" aria-label="Cerrar menú">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+                </button>
+            </div>
+
+            <nav class="sidebar__nav" aria-label="Navegación principal">
+                <a href="#" class="navlink is-active" data-nav="inicio">
+                    <svg class="navlink__icon" width="19" height="19" viewBox="0 0 24 24" fill="none"><path d="M4 11.5L12 4l8 7.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M6 10v9a1 1 0 001 1h3v-6h4v6h3a1 1 0 001-1v-9" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>
+                    <span>Inicio</span>
+                </a>
+                <a href="#" class="navlink" data-nav="cursos">
+                    <svg class="navlink__icon" width="19" height="19" viewBox="0 0 24 24" fill="none"><path d="M4 6a2 2 0 012-2h9v16H6a2 2 0 01-2-2V6z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M15 4h3a2 2 0 012 2v12a2 2 0 01-2 2h-3" stroke="currentColor" stroke-width="1.8"/><path d="M7 8h6M7 11h6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+                    <span>Mis cursos</span>
+                </a>
+                <a href="#" class="navlink" data-nav="calendario">
+                    <svg class="navlink__icon" width="19" height="19" viewBox="0 0 24 24" fill="none"><rect x="3.5" y="5" width="17" height="15" rx="2" stroke="currentColor" stroke-width="1.8"/><path d="M3.5 9.5h17M8 3v3.5M16 3v3.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+                    <span>Calendario</span>
+                </a>
+                <a href="#" class="navlink" data-nav="tareas">
+                    <svg class="navlink__icon" width="19" height="19" viewBox="0 0 24 24" fill="none"><path d="M6 3h9l5 5v13a1 1 0 01-1 1H6a1 1 0 01-1-1V4a1 1 0 011-1z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M8.5 12.5l2 2 4.5-4.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    <span>Tareas</span>
+                    <span class="navlink__badge" id="navTaskBadge">3</span>
+                </a>
+                <a href="#" class="navlink" data-nav="mensajes">
+                    <svg class="navlink__icon" width="19" height="19" viewBox="0 0 24 24" fill="none"><path d="M4 5.5h16A1.5 1.5 0 0121.5 7v10a1.5 1.5 0 01-1.5 1.5H4A1.5 1.5 0 012.5 17V7A1.5 1.5 0 014 5.5z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M4 7l8 6 8-6" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>
+                    <span>Mensajes</span>
+                </a>
+                <a href="#" class="navlink" data-nav="progreso">
+                    <svg class="navlink__icon" width="19" height="19" viewBox="0 0 24 24" fill="none"><path d="M4 20V10M12 20V4M20 20v-7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+                    <span>Progreso</span>
+                </a>
+                <a href="#" class="navlink" data-nav="config">
+                    <svg class="navlink__icon" width="19" height="19" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="1.8"/><path d="M19.4 13.5a1.7 1.7 0 00.34 1.87l.06.06a2 2 0 11-2.83 2.83l-.06-.06a1.7 1.7 0 00-1.87-.34 1.7 1.7 0 00-1 1.55V19.9a2 2 0 11-4 0v-.09a1.7 1.7 0 00-1.1-1.55 1.7 1.7 0 00-1.87.34l-.06.06a2 2 0 11-2.83-2.83l.06-.06a1.7 1.7 0 00.34-1.87 1.7 1.7 0 00-1.55-1H4.1a2 2 0 110-4h.09a1.7 1.7 0 001.55-1.1 1.7 1.7 0 00-.34-1.87l-.06-.06a2 2 0 112.83-2.83l.06.06a1.7 1.7 0 001.87.34H10a1.7 1.7 0 001-1.55V4.1a2 2 0 114 0v.09a1.7 1.7 0 001 1.55 1.7 1.7 0 001.87-.34l.06-.06a2 2 0 112.83 2.83l-.06.06a1.7 1.7 0 00-.34 1.87V10a1.7 1.7 0 001.55 1h.09a2 2 0 110 4h-.09a1.7 1.7 0 00-1.55 1z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>
+                    <span>Configuración</span>
+                </a>
+            </nav>
+
+            <div class="sidebar__footer">
+                <div class="mini-progress">
+                    <div class="mini-progress__ring" id="miniRing" style="--pct:71"></div>
+                    <div>
+                        <p class="mini-progress__label">Progreso general</p>
+                        <p class="mini-progress__value"><span id="miniRingValue">71</span>%</p>
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+        <!-- ============ MAIN ============ -->
+        <div class="main">
+
+            <!-- HEADER -->
+            <header class="topbar">
+                <button class="topbar__menu" id="menuBtn" aria-label="Abrir menú">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M4 7h16M4 12h16M4 17h16" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+                </button>
+
+                <div class="searchbar">
+                    <svg width="17" height="17" viewBox="0 0 24 24" fill="none"><circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="1.8"/><path d="M21 21l-4.3-4.3" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+                    <input type="text" placeholder="Buscar cursos, tareas, mensajes…" aria-label="Buscar" />
+                    <kbd class="searchbar__kbd">/</kbd>
+                </div>
+
+                <div class="topbar__actions">
+
+                    <div class="dropdown" id="notifDropdown">
+                        <button class="iconbtn" id="notifBtn" aria-label="Notificaciones" aria-expanded="false">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M6 9a6 6 0 0112 0c0 4 1.5 5.5 2 6H4c.5-.5 2-2 2-6z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M10 20a2 2 0 004 0" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+                            <span class="iconbtn__dot" id="notifDot">3</span>
+                        </button>
+                        <div class="dropdown__panel dropdown__panel--wide" id="notifPanel">
+                            <div class="dropdown__head">
+                                <span>Notificaciones</span>
+                                <button class="linkbtn" id="markAllRead">Marcar todo leído</button>
+                            </div>
+                            <ul class="notif-list" id="notifList">
+                                <li class="notif-item is-unread">
+                                    <span class="notif-item__dot notif-item__dot--warn"></span>
+                                    <div>
+                                        <p>Recordatorio: <strong>Prueba de Matemáticas</strong> este jueves</p>
+                                        <span class="notif-item__time">hace 1 hora</span>
+                                    </div>
+                                </li>
+                                <li class="notif-item is-unread">
+                                    <span class="notif-item__dot notif-item__dot--info"></span>
+                                    <div>
+                                        <p>Nuevo material publicado en <strong>Inglés</strong></p>
+                                        <span class="notif-item__time">hace 3 horas</span>
+                                    </div>
+                                </li>
+                                <li class="notif-item is-unread">
+                                    <span class="notif-item__dot notif-item__dot--ok"></span>
+                                    <div>
+                                        <p>Calificación recibida en <strong>Programación</strong>: 92/100</p>
+                                        <span class="notif-item__time">ayer</span>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="dropdown" id="userDropdown">
+                        <button class="user-chip" id="userBtn" aria-expanded="false">
+                            <span class="avatar">TA</span>
+                            <span class="user-chip__name">Tamar Andrade</span>
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                        </button>
+                        <div class="dropdown__panel" id="userPanel">
+                            <a href="#" class="dropdown__item">Mi perfil</a>
+                            <a href="#" class="dropdown__item">Configuración</a>
+                            <a href="#" class="dropdown__item">Ayuda</a>
+                            <hr class="dropdown__sep" />
+                            <a href="#" class="dropdown__item dropdown__item--danger">Cerrar sesión</a>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <!-- CONTENT -->
+            <main class="content">
+
+                <p class="page-eyebrow">Panel del estudiante <span>/</span> Inicio</p>
+
+                <!-- Saludo -->
+                <section class="greeting">
+                    <div>
+                        <h1>Hola, Tamar <span aria-hidden="true">👋</span></h1>
+                        <p>Tienes <strong id="greetTaskCount">3 tareas</strong> pendientes y <strong>1 clase</strong> hoy. Vas muy bien esta semana.</p>
+                    </div>
+                    <button class="btn btn--primary" id="continueBtn">
+                        Continuar donde quedé
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    </button>
+                </section>
+
+                <!-- KPIs -->
+                <section class="kpi-grid" aria-label="Resumen académico">
+                    <div class="kpi-card">
+                        <div class="kpi-card__top">
+                            <div class="kpi-card__icon kpi-card__icon--blue">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M4 6a2 2 0 012-2h9v16H6a2 2 0 01-2-2V6z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>
+                            </div>
+                            <span class="kpi-card__trend kpi-card__trend--flat">= sem.</span>
+                        </div>
+                        <p class="kpi-card__value">4</p>
+                        <p class="kpi-card__label">Cursos activos</p>
+                    </div>
+                    <div class="kpi-card">
+                        <div class="kpi-card__top">
+                            <div class="kpi-card__icon kpi-card__icon--amber">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M6 3h9l5 5v13a1 1 0 01-1 1H6a1 1 0 01-1-1V4a1 1 0 011-1z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>
+                            </div>
+                            <span class="kpi-card__trend kpi-card__trend--down">↓ 2</span>
+                        </div>
+                        <p class="kpi-card__value" id="kpiPending">3</p>
+                        <p class="kpi-card__label">Tareas pendientes</p>
+                    </div>
+                    <div class="kpi-card">
+                        <div class="kpi-card__top">
+                            <div class="kpi-card__icon kpi-card__icon--violet">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><rect x="3.5" y="5" width="17" height="15" rx="2" stroke="currentColor" stroke-width="1.8"/><path d="M3.5 9.5h17" stroke="currentColor" stroke-width="1.8"/></svg>
+                            </div>
+                            <span class="kpi-card__trend kpi-card__trend--flat">= sem.</span>
+                        </div>
+                        <p class="kpi-card__value">3</p>
+                        <p class="kpi-card__label">Clases esta semana</p>
+                    </div>
+                    <div class="kpi-card">
+                        <div class="kpi-card__top">
+                            <div class="kpi-card__icon kpi-card__icon--green">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M4 20V10M12 20V4M20 20v-7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+                            </div>
+                            <span class="kpi-card__trend kpi-card__trend--up">↑ 4%</span>
+                        </div>
+                        <p class="kpi-card__value">71%</p>
+                        <p class="kpi-card__label">Progreso general</p>
+                    </div>
+                </section>
+
+                <!-- Grid principal -->
+                <section class="grid-main">
+
+                    <!-- Columna izquierda -->
+                    <div class="col-left">
+
+                        <div class="panel">
+                            <div class="panel__head">
+                                <h2>Mis cursos</h2>
+                                <div class="filter-group" id="courseFilters" role="tablist">
+                                    <button class="filter-chip is-active" data-filter="todos">Todos</button>
+                                    <button class="filter-chip" data-filter="activo">Activos</button>
+                                    <button class="filter-chip" data-filter="completado">Completados</button>
+                                </div>
+                            </div>
+
+                            <div class="course-grid" id="courseGrid">
+                                <!-- Las tarjetas de curso se inyectan desde js/app.js a partir de datos ficticios -->
+                            </div>
+                        </div>
+
+                        <div class="panel">
+                            <div class="panel__head">
+                                <h2>Tareas pendientes</h2>
+                                <a href="#" class="linkbtn">Ver todas</a>
+                            </div>
+                            <ul class="task-list" id="taskList">
+                                <!-- Tareas inyectadas por JS -->
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Columna derecha -->
+                    <div class="col-right">
+
+                        <div class="panel panel--progress">
+                            <div class="panel__head">
+                                <h2>Progreso académico</h2>
+                            </div>
+                            <div class="progress-ring-wrap">
+                                <div class="progress-ring" id="progressRing" style="--pct:71">
+                                    <span class="progress-ring__value"><span id="progressRingValue">71</span>%</span>
+                                </div>
+                                <ul class="progress-legend" id="progressLegend">
+                                    <!-- Leyenda por curso inyectada por JS -->
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="panel">
+                            <div class="panel__head">
+                                <div>
+                                    <h2>Actividad semanal</h2>
+                                    <p class="panel__sub">Minutos de estudio por día</p>
+                                </div>
+                            </div>
+                            <div class="week-chart" id="weekChart">
+                                <!-- Barras inyectadas por JS -->
+                            </div>
+                        </div>
+
+                        <div class="panel">
+                            <div class="panel__head">
+                                <h2>Próximas clases</h2>
+                            </div>
+                            <ul class="class-list" id="classList">
+                                <!-- Clases inyectadas por JS -->
+                            </ul>
+                        </div>
+
+                        <div class="panel">
+                            <div class="panel__head">
+                                <h2>Actividad reciente</h2>
+                            </div>
+                            <ul class="activity-list" id="activityList">
+                                <!-- Actividad inyectada por JS -->
+                            </ul>
+                        </div>
+
+                    </div>
+                </section>
+            </main>
+
+            <!-- Navegación compacta móvil -->
+            <nav class="mobile-nav" aria-label="Navegación móvil">
+                <a href="#" class="mobile-nav__item is-active" data-nav="inicio">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M4 11.5L12 4l8 7.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M6 10v9a1 1 0 001 1h3v-6h4v6h3a1 1 0 001-1v-9" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>
+                    <span>Inicio</span>
+                </a>
+                <a href="#" class="mobile-nav__item" data-nav="cursos">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M4 6a2 2 0 012-2h9v16H6a2 2 0 01-2-2V6z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>
+                    <span>Cursos</span>
+                </a>
+                <a href="#" class="mobile-nav__item" data-nav="tareas">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M8.5 12.5l2 2 4.5-4.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M6 3h9l5 5v13a1 1 0 01-1 1H6a1 1 0 01-1-1V4a1 1 0 011-1z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>
+                    <span>Tareas</span>
+                </a>
+                <a href="#" class="mobile-nav__item" data-nav="calendario">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><rect x="3.5" y="5" width="17" height="15" rx="2" stroke="currentColor" stroke-width="1.8"/><path d="M3.5 9.5h17" stroke="currentColor" stroke-width="1.8"/></svg>
+                    <span>Agenda</span>
+                </a>
+                <a href="#" class="mobile-nav__item" data-nav="progreso">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M4 20V10M12 20V4M20 20v-7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+                    <span>Progreso</span>
+                </a>
+            </nav>
+        </div>
+    </div>
+    <script src="./js/app.js" defer></script>
+</body>
+</html>
